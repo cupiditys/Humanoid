@@ -2,7 +2,7 @@ const fs = require("fs");
 const rpn = require("request-promise-native");
 const URL = require("url-parse");
 const Response = require("./response");
-const brotli = require('iltorb');
+const zlib = require('zlib');
 
 
 class HumanoidReqHandler {
@@ -52,7 +52,7 @@ class HumanoidReqHandler {
 	}
 	
 	async _decompressBrotli(res) {
-		res.body = await brotli.decompress(res.body);
+		res.body = await zlib.brotliDecompressSync(res.body).toString();
 		return res;
 	}
 	
